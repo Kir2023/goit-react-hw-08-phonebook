@@ -5,12 +5,14 @@ import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
 
 import css from './ContactForm.module.css';
+import BtnLoader from 'components/BtnLoader/BtnLoader';
 
 export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -43,10 +45,18 @@ export const ContactForm = () => {
     e.preventDefault();
 
     if (!isNameInContacts(name)) {
-      dispatch(addContact({ name, phone }));
-      alert(`${name} succesfuly added in contacts`);
-      setName('');
-      setPhone('');
+      setIsLoading(true);
+      dispatch(addContact({ name, phone }))
+        .then(() => {
+          setIsLoading(false);
+          alert(`${name} succesfuly added in contacts`);
+          setName('');
+          setPhone('');
+        })
+        .catch(error => {
+          setIsLoading(false);
+          alert(`Error adding contact: ${error}`);
+        });
     }
   };
 
@@ -77,7 +87,7 @@ export const ContactForm = () => {
         onChange={handleInputChange}
       />
       <button className={css.formBtn} type="submit">
-        Add contact
+        {isLoading ? <BtnLoader /> : 'Add contact'}
       </button>
     </form>
   );
