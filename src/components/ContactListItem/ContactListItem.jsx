@@ -29,7 +29,13 @@ const ContactListItem = ({ id, name, phone }) => {
     <li className={css.contactItem}>
       <span className={css.contactTxt}>{name}</span> :{' '}
       <span className={css.contactTxt}>{phone}</span>
-      <button onClick={handleDelete} type="button" className={css.deleteBtn}>
+      <button
+        onClick={() => {
+          handleDelete(id);
+        }}
+        type="button"
+        className={css.deleteBtn}
+      >
         {isLoading ? <BtnLoader /> : 'Delete'}
       </button>
     </li>
