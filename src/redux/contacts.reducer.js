@@ -4,7 +4,6 @@ import { fetchContacts, addContact, deleteContact } from './operations.js';
 
 const initialStateContacts = {
   items: [],
-  isLoading: false,
   error: null,
 };
 
