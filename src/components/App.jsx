@@ -1,47 +1,26 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { selectError } from 'redux/selectors';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import { fetchContacts } from 'redux/operations';
-import { Loader } from './Loader/Loader';
+import { Suspense } from 'react';
+import Layout from './Layout/Layout';
+
+const Home = lazy(() => import('pages/HomePage/HomePage'));
+const Login = lazy(() => import('pages/LoginPage/LoginPage'));
+const Register = lazy(() => import('pages/RegisterPage/RegisterPage'));
+const Contacts = lazy(() => import('pages/ContactsPage/ContactsPage'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const error = useSelector(selectError);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    dispatch(fetchContacts())
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(error => {
-        setIsLoading(false);
-        alert(`Error: ${error}`);
-      });
-  }, [dispatch]);
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 20,
-        color: '#010101',
-      }}
-    >
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2> Contacts</h2>
-      <Filter />
-      {isLoading && !error && <Loader />}
-      <ContactList />
-    </div>
+    <Layout>
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
 };
