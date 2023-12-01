@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import Notiflix from 'notiflix';
+
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
@@ -17,11 +19,11 @@ const ContactListItem = ({ id, name, phone }) => {
     dispatch(deleteContact(id))
       .then(() => {
         setIsLoading(false);
-        alert(`${name} succesfuly deleted`);
+        Notiflix.Notify.success(`${name} succesfuly deleted`);
       })
       .catch(error => {
         setIsLoading(false);
-        alert(`Error deleting contact: ${error}`);
+        Notiflix.Notify.failure(`Error deleting contact: ${error}`);
       });
   };
 

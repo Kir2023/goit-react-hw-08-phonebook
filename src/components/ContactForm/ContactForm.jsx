@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -35,7 +37,7 @@ export const ContactForm = () => {
     );
 
     if (hasDuplicates) {
-      alert(`${contactData} is already in contacts.`);
+      Notiflix.Notify.warning(`${contactData} is already in contacts.`);
       return true;
     }
     return false;
@@ -49,13 +51,13 @@ export const ContactForm = () => {
       dispatch(addContact({ name, phone }))
         .then(() => {
           setIsLoading(false);
-          alert(`${name} succesfuly added in contacts`);
+          Notiflix.Notify.success(`${name} succesfuly added in contacts`);
           setName('');
           setPhone('');
         })
         .catch(error => {
           setIsLoading(false);
-          alert(`Error adding contact: ${error}`);
+          Notiflix.Notify.failure(`Error adding contact: ${error}`);
         });
     }
   };
