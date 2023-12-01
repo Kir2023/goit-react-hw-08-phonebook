@@ -1,7 +1,10 @@
-.homeHeader {
+.homeTextContainer {
+  padding-top: 240px;
+}
+
+.homeText {
   font-size: 50px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin-top: 0;
-  padding-top: 240px;
 }

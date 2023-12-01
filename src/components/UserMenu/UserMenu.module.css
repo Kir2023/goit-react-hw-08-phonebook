@@ -1,3 +1,15 @@
+.userMenu {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 1150px;
+}
+
+.userName {
+  font-size: 20px;
+}
+
 .logoutButton {
   margin-top: 1rem;
   margin-bottom: 0.5rem;

@@ -1,10 +1,25 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { loginThunk } from 'redux/auth.reducer';
 
 import css from './LoginPage.module.css';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+
   const onSubmit = e => {
     e.preventDefault();
+
+    const email = e.currentTarget.elements.userEmail.value;
+    const password = e.currentTarget.elements.userPassword.value;
+
+    const formData = {
+      email,
+      password,
+    };
+
+    dispatch(loginThunk(formData));
   };
 
   return (

@@ -2,12 +2,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 121, 67, 0.6222864145658263) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
+  background-color: #c46f07dc;
   display: flex;
   justify-content: center;
 }
@@ -30,9 +25,9 @@
   width: 100%;
   min-height: 100vh;
   background-image: linear-gradient(
-    to right,
-    rgba(30, 75, 115, 1),
-    rgba(255, 255, 255, 0)
+    180deg,
+    rgba(58, 85, 180, 1) 0%,
+    rgba(202, 255, 250, 0.9864320728291317) 96%
   );
   background-repeat: no-repeat;
   background-size: cover;
