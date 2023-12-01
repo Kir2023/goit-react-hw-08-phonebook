@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/674.460c8530.chunk.css","mappings":"AAAA,4BAEE,sCAAyC,CADzC,cAAe,CAGf,YAAa,CACb,iBAAkB,CAFlB,iBAGF","sources":["pages/HomePage/HomePage.module.css"],"sourcesContent":[".homeHeader {\n  font-size: 50px;\n  font-family: Arial, Helvetica, sans-serif;\n  text-align: center;\n  margin-top: 0;\n  padding-top: 240px;\n}\n"],"names":[],"sourceRoot":""}
