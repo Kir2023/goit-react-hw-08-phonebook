@@ -1,12 +1,17 @@
-import React from 'react';
+import Notiflix from 'notiflix';
 
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import css from './RegisterPage.module.css';
 import { registerThunk } from 'redux/auth.reducer';
+
+import BtnLoader from 'components/BtnLoader/BtnLoader';
+
+import css from './RegisterPage.module.css';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -21,7 +26,15 @@ const RegisterPage = () => {
       password,
     };
 
-    dispatch(registerThunk(formData));
+    setIsLoading(true);
+    dispatch(registerThunk(formData))
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(error => {
+        setIsLoading(false);
+        Notiflix.Notify.failure(`Error deleting contact: ${error}`);
+      });
   };
 
   return (
@@ -60,7 +73,7 @@ const RegisterPage = () => {
         </label>
         <br />
         <button type="submit" className={css.registerBtn}>
-          Sign Up
+          {isLoading ? <BtnLoader /> : 'Sign up'}
         </button>
       </form>
     </div>

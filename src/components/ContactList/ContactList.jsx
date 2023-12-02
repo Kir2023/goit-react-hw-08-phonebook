@@ -16,8 +16,8 @@ export const ContactList = () => {
         {filteredContacts.length === 0 && !error ? (
           <p>The Phonebook is empty. Add your first contact.</p>
         ) : (
-          filteredContacts.map(({ id, name, phone }) => (
-            <ContactListItem key={id} id={id} name={name} phone={phone} />
+          filteredContacts.map(({ id, name, number }) => (
+            <ContactListItem key={id} id={id} name={name} number={number} />
           ))
         )}
       </ul>

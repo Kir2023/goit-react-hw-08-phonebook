@@ -45,7 +45,7 @@ export const refreshThunk = createAsyncThunk(
       const state = thunkApi.getState();
       const token = state.auth.token;
       setToken(token);
-      const { data } = await instance.get('/users/current');
+      const { data } = await instance.get('users/current');
 
       return data;
     } catch (err) {
@@ -59,6 +59,19 @@ export const refreshThunk = createAsyncThunk(
       if (!token) return false;
       return true;
     },
+  }
+);
+
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkApi) => {
+    try {
+      const { data } = await instance.post('users/logout');
+
+      return data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.message);
+    }
   }
 );
 
@@ -93,12 +106,16 @@ const authSlice = createSlice({
         state.authenticated = true;
         state.userData = payload;
       })
+      .addCase(logoutThunk.fulfilled, () => {
+        return initialState;
+      })
 
       .addMatcher(
         isAnyOf(
           loginThunk.pending,
           registerThunk.pending,
-          refreshThunk.pending
+          refreshThunk.pending,
+          logoutThunk.pending
         ),
         state => {
           state.isLoading = true;
@@ -109,7 +126,8 @@ const authSlice = createSlice({
         isAnyOf(
           loginThunk.rejected,
           registerThunk.rejected,
-          refreshThunk.rejected
+          refreshThunk.rejected,
+          logoutThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;

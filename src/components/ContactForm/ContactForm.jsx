@@ -13,7 +13,7 @@ export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = ({ target }) => {
@@ -24,7 +24,7 @@ export const ContactForm = () => {
         setName(value);
         break;
       case 'number':
-        setPhone(value);
+        setNumber(value);
         break;
       default:
         return;
@@ -48,12 +48,12 @@ export const ContactForm = () => {
 
     if (!isNameInContacts(name)) {
       setIsLoading(true);
-      dispatch(addContact({ name, phone }))
+      dispatch(addContact({ name, number }))
         .then(() => {
           setIsLoading(false);
           Notiflix.Notify.success(`${name} succesfuly added in contacts`);
           setName('');
-          setPhone('');
+          setNumber('');
         })
         .catch(error => {
           setIsLoading(false);
@@ -85,7 +85,7 @@ export const ContactForm = () => {
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
         placeholder="Enter phone number"
-        value={phone}
+        value={number}
         onChange={handleInputChange}
       />
       <button className={css.formBtn} type="submit">
