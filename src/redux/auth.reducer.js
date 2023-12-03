@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 export const instance = axios.create({
   baseURL: 'https://connections-api.herokuapp.com/',
@@ -19,6 +20,7 @@ export const loginThunk = createAsyncThunk(
 
       return data;
     } catch (err) {
+      Notiflix.Notify.failure('Wrong email or password');
       return thunkApi.rejectWithValue(err.message);
     }
   }
@@ -33,6 +35,7 @@ export const registerThunk = createAsyncThunk(
 
       return data;
     } catch (err) {
+      Notiflix.Notify.failure('This email is already registered');
       return thunkApi.rejectWithValue(err.message);
     }
   }
